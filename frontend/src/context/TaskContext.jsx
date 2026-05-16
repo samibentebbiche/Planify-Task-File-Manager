@@ -100,11 +100,22 @@ export const TaskProvider = ({ children }) => {
 
     try {
       console.log("Sending task to backend:", backendPayload);
-      await axios.post(API_BASE_URL, backendPayload);
-      await fetchTasks(); // Re-fetch to get the assigned ID and confirm it's added
+      const postResponse = await axios.post(API_BASE_URL, backendPayload);
       
+      // Fetch the updated list to ensure we have the absolute latest data from backend
+      const getResponse = await axios.get(API_BASE_URL);
+      const fetchedTasks = getResponse.data;
+      
+      // Find the task we just added (match by title and description, or get the last one if we can't tell)
+      const matchedTask = fetchedTasks.reverse().find(t => t.title === taskData.title && t.description === taskData.description);
+      
+      // Get the real ID from the backend response or the fetched list
+      const realId = (postResponse.data && postResponse.data.id) ? postResponse.data.id : (matchedTask ? matchedTask.id : uuidv4());
       const newColor = colors[tasks.length % colors.length];
-      addToRecentlyOpened({ ...taskData, id: uuidv4(), color: newColor, markdownContent: '' });
+      
+      await fetchTasks(); // Update context state
+      
+      addToRecentlyOpened({ ...taskData, id: realId, color: newColor, markdownContent: '' });
     } catch (error) {
       console.error("Error adding task. Falling back to local state.", error);
       const newColor = colors[tasks.length % colors.length];
@@ -155,6 +166,19 @@ export const TaskProvider = ({ children }) => {
     });
   };
 
+  const deleteTask = async (id) => {
+    try {
+      console.log("Deleting task:", id);
+      await axios.delete(`${API_BASE_URL}/${id}`);
+      
+      // Update local state
+      setTasks(prevTasks => prevTasks.filter(task => String(task.id) !== String(id)));
+      setRecentlyOpened(prevOpened => prevOpened.filter(task => String(task.id) !== String(id)));
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
+  };
+
   const getTasksForMonth = (year, month) => {
     return tasks.filter(task => task.year === year && task.month === month);
   };
@@ -168,6 +192,7 @@ export const TaskProvider = ({ children }) => {
     <TaskContext.Provider value={{
       tasks,
       addTask,
+      deleteTask,
       getTasksForMonth,
       getTaskById,
       currentYear,

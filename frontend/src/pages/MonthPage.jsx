@@ -1,13 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Row, Col, Card, Dropdown } from 'react-bootstrap';
+import { Container, Row, Col, Card, Dropdown, Modal, Button } from 'react-bootstrap';
 import { TaskContext } from '../context/TaskContext';
 
 const MonthPage = () => {
   const { year, month } = useParams();
-  const { getTasksForMonth, friends } = useContext(TaskContext);
+  const { getTasksForMonth, friends, deleteTask } = useContext(TaskContext);
   const navigate = useNavigate();
   
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState(null);
+
   const parsedYear = parseInt(year, 10);
   const parsedMonth = parseInt(month, 10);
   
@@ -20,6 +23,12 @@ const MonthPage = () => {
 
   const handleShareClick = (e, taskTitle) => {
     e.stopPropagation(); // prevent card click
+  };
+
+  const handleDeleteClick = (e, taskId) => {
+    e.stopPropagation(); // prevent card click
+    setTaskToDelete(taskId);
+    setShowDeleteModal(true);
   };
 
   return (
@@ -78,9 +87,19 @@ const MonthPage = () => {
 
                   </div>
                   <Card.Title className="fw-bold fs-4 mb-3 pe-4">{task.title}</Card.Title>
-                  <Card.Text className="text-white-50 mt-auto text-truncate">
+                  <Card.Text className="text-white-50 mt-auto text-truncate" style={{ paddingRight: '40px' }}>
                     {task.description}
                   </Card.Text>
+                  
+                  {/* Delete Button */}
+                  <div
+                    className="position-absolute d-flex justify-content-center align-items-center rounded-circle bg-danger text-white shadow"
+                    style={{ width: '35px', height: '35px', bottom: '15px', right: '15px', zIndex: 10, cursor: 'pointer', transition: 'background-color 0.2s' }}
+                    onClick={(e) => handleDeleteClick(e, task.id)}
+                    title="Delete task"
+                  >
+                    <i className="bi bi-trash"></i>
+                  </div>
                 </Card.Body>
               </Card>
             </Col>
@@ -101,6 +120,30 @@ const MonthPage = () => {
           </Col>
         </Row>
       </Container>
+
+      {/* Delete Confirmation Modal */}
+      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered>
+        <Modal.Header closeButton className="border-0 pb-0">
+          <Modal.Title className="fw-bold text-danger">Delete Task</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="fs-5 text-body">
+          Are you sure you want to delete this task? This action cannot be undone.
+        </Modal.Body>
+        <Modal.Footer className="border-0 pt-0">
+          <Button variant="light" onClick={() => setShowDeleteModal(false)} className="fw-medium">
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={() => {
+            if (taskToDelete) {
+              deleteTask(taskToDelete);
+            }
+            setShowDeleteModal(false);
+          }} className="fw-medium px-4">
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
     </Container>
   );
 };

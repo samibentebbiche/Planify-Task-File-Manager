@@ -5,7 +5,7 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-admin}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-admin}
-      POSTGRES_DB: db_taskManager
+      POSTGRES_DB: tasksandchallengesDB
       PGDATA : /data/postgres
     volumes:
       - postgres:/data/postgres
