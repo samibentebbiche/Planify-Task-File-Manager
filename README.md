@@ -2,13 +2,13 @@
 Planify is a full-stack productivity application built around a monthly calendar view. Users can attach tasks and markdown-formatted files to any date, visualize their schedule at a glance, and manage their content with full CRUD capabilities.This repository focuses on the Spring Boot backend and PostgreSQL database layer.
 
 
-# 📅 Planify — Task & File Manager
+# Planify — Task & File Manager
 
 > **Beta v0.1.0** — A calendar-centric productivity app for managing tasks and markdown files, with real-time preview and upcoming collaboration features.
 
 ---
 
-## 📌 Overview
+## Overview
 
 **Planify** is a full-stack productivity application built around a monthly calendar view. Users can attach tasks and markdown-formatted files to any date, visualize their schedule at a glance, and manage their content with full CRUD capabilities.
 
@@ -16,20 +16,20 @@ The frontend was built with **React.js** and was fully implemented already it is
 
 ---
 
-## ✨ Features
+## Features
 
 ### ✅ Implemented (Beta)
-- 📆 **Calendar view** — Monthly layout as the landing page
-- ✏️ **Task management** — Create, read, update, and delete tasks per date
-- 📁 **File management** — Attach files to any calendar entry
-- 📝 **Markdown editor** — Live preview of markdown-formatted file content
-- 🗃️ **PostgreSQL database** — Persistent storage via Docker
-- 🐳 **Docker Compose** — One-command local setup for Postgres + pgAdmin
+-  **Calendar view** — Monthly layout as the landing page
+-  **Task management** — Create, read, update, and delete tasks per date
+-  **File management** — Attach files to any calendar entry
+-  **Markdown editor** — Live preview of markdown-formatted file content
+-  **PostgreSQL database** — Persistent storage via Docker
+-  **Docker Compose** — One-command local setup for Postgres + pgAdmin
 
-### 🚧 Planned (Upcoming)
-- 👤 **User accounts** — Registration, login, session management, and profile page
-- 🤝 **Document sharing** — Share files and tasks between friends
-- 💬 **Encrypted messaging** — End-to-end encrypted chat between users
+### Planned (Upcoming)
+-  **User accounts** — Registration, login, session management, and profile page
+-  **Document sharing** — Share files and tasks between friends
+-  **Encrypted messaging** — End-to-end encrypted chat between users
 
 ---
 
@@ -45,7 +45,7 @@ The frontend was built with **React.js** and was fully implemented already it is
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -121,7 +121,7 @@ The app will be available at [http://localhost:3000](http://localhost:3000).
 
 ---
 
-## 🔌 API Endpoints (Backend)
+##  API Endpoints (Backend)
 
 Base URL: `http://localhost:8080`
 
@@ -166,7 +166,7 @@ GET /challenges/day/2026-05-15
 
 ---
 
-## 🐳 Docker Services
+## Docker Services
 
 | Service   | URL                          | Default Credentials        |
 |-----------|------------------------------|----------------------------|
@@ -175,7 +175,7 @@ GET /challenges/day/2026-05-15
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 This project is in **beta**. Contributions, issues, and feature requests are welcome!
 
@@ -187,17 +187,17 @@ This project is in **beta**. Contributions, issues, and feature requests are wel
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 👤 Author
+## Author
 
 **Sami Bentebbiche**
 - GitHub: [@samibentebbiche](https://github.com/samibentebbiche)
 
 ---
 
-> 🚧 This is a beta release. Some features are still under active development.
+>  This is a beta release. Some features are still under active development.
